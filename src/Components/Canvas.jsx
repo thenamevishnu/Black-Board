@@ -98,9 +98,16 @@ const Canvas = () => {
         }
     }
 
+    const downloadImage = () => {
+        const a = document.createElement("a")
+        a.href = localStorage.getItem("canvasimg")
+        a.download = "BB" + new Date().getTime()
+        a.click()
+    }
+
     return (
         <div className='flex justify-center w-screen text-white'>
-            {loading && <div className='whitespace-nowrap absolute top-1/2 left-1/2 text-lg font-mono animate-pulse translate-x-[-50%] translate-y-[-50%]'>
+           {loading && <div className='whitespace-nowrap absolute top-1/2 left-1/2 text-lg font-mono animate-pulse translate-x-[-50%] translate-y-[-50%]'>
                 WELCOME TO BLACK BOARD
             </div>}
             <div className="absolute bottom-5 px-2 p-1 flex justify-between items-center border-2 border-gray-700 rounded-2xl">
@@ -131,8 +138,11 @@ const Canvas = () => {
                     <button onClick={clearCanvas} className="fa fa-rotate-left"></button>
                 </div>
 
-                <div className=' active:text-red-700 active:transition-all active:scale-150'>
+                <div className='mr-5 active:text-red-700 active:transition-all active:scale-150'>
                     <button onClick={eraseCanvas} className="fa fa-eraser"></button>
+                </div>
+                <div >
+                    <button className='fa fa-download' onClick={downloadImage}></button>
                 </div>
             </div>
             <canvas style={{ cursor: cursor , width: "auto", height: "auto"}} onMouseDown={startPosition} onTouchStart={startPosition} onMouseUp={finishedPosition} onTouchEnd={finishedPosition} onMouseMove={draw} onTouchMove={draw} ref={canvasRef} />
