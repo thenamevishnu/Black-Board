@@ -10,6 +10,8 @@ const Canvas = () => {
     const timeout = useRef(null)
     const [cursor, setCursor] = useState("default")
     const [loading, setLoading] = useState(true)
+    const [isMenu, showMenu] = useState(false)
+    const [aggreed, setAggreed] = useState(false)
 
     window.addEventListener('beforeunload', (e) => {
         e.preventDefault();
@@ -17,7 +19,7 @@ const Canvas = () => {
     });
 
     useEffect(() => {
-        setTimeout(()=>{
+        if(aggreed){
             const canvas = canvasRef.current
             ctx.current = canvas.getContext("2d")
             canvas.height = window.innerHeight - 10
@@ -33,8 +35,8 @@ const Canvas = () => {
                 image.src = canvasimg
             }
             setLoading(false)
-        },1500)
-    }, [ctx])
+        }
+    }, [ctx, aggreed])
 
     const startPosition = ({ nativeEvent }) => {
         setIsDrawing(true)
@@ -107,10 +109,15 @@ const Canvas = () => {
 
     return (
         <div className='flex justify-center w-screen text-white'>
-           {loading && <div className='whitespace-nowrap absolute top-1/2 left-1/2 text-lg font-mono animate-pulse translate-x-[-50%] translate-y-[-50%]'>
-                WELCOME TO BLACK BOARD
-            </div>}
-            <div className="absolute bottom-5 px-2 p-1 flex justify-between items-center border-2 border-gray-700 rounded-2xl">
+           {loading && <>
+            <div className='whitespace-nowrap absolute top-1/2 left-1/2 text-lg font-mono translate-x-[-50%] translate-y-[-50%]'>
+                <h1 className='animate-pulse'>WELCOME TO BLACK BOARD</h1>
+                <p>Note: Double click anywhere to show/hide tools</p>
+                <button className='bg-green-600 active:bg-green-900 px-2 rounded-lg mt-5' onClick={()=>setAggreed(true)}>Okey</button>
+            </div>
+           </>
+            }
+            {isMenu && <div className="absolute bg-black top-2 px-2 p-2 flex justify-between items-center border-2 border-gray-700 rounded-2xl">
                 <div className='mr-5'>
                     <button onClick={getPen} className='active:text-red-700 active:transition-all active:scale-150'><i className='fa fa-pen'></i></button>
                 </div>
@@ -144,8 +151,8 @@ const Canvas = () => {
                 <div >
                     <button className='fa fa-download' onClick={downloadImage}></button>
                 </div>
-            </div>
-            <canvas style={{ cursor: cursor , width: "auto", height: "auto"}} onMouseDown={startPosition} onTouchStart={startPosition} onMouseUp={finishedPosition} onTouchEnd={finishedPosition} onMouseMove={draw} onTouchMove={draw} ref={canvasRef} />
+            </div>}
+            <canvas style={{ cursor: cursor , width: "auto", height: "auto"}} onMouseDown={startPosition} onTouchStart={startPosition} onMouseUp={finishedPosition} onTouchEnd={finishedPosition} onMouseMove={draw} onTouchMove={draw} ref={canvasRef} onDoubleClick={()=>showMenu(!isMenu)}/>
         </div>
       )
 }
