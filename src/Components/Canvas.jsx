@@ -11,6 +11,11 @@ const Canvas = () => {
     const [cursor, setCursor] = useState("default")
     const [loading, setLoading] = useState(true)
 
+    window.addEventListener('beforeunload', (e) => {
+        e.preventDefault();
+        e.returnValue = '';
+    });
+
     useEffect(() => {
         setTimeout(()=>{
             const canvas = canvasRef.current
