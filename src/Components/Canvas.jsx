@@ -130,7 +130,7 @@ const Canvas = () => {
                     <button onClick={eraseCanvas} className="fa fa-eraser"></button>
                 </div>
             </div>
-            <canvas style={{ cursor: cursor , width: "auto", height: "auto"}} onMouseDown={startPosition} onMouseUp={finishedPosition} onMouseMove={draw} ref={canvasRef} />
+            <canvas style={{ cursor: cursor , width: "auto", height: "auto"}} onMouseDown={startPosition} onTouchStart={startPosition} onMouseUp={finishedPosition} onTouchEnd={finishedPosition} onMouseMove={draw} onTouchMove={draw} ref={canvasRef} />
         </div>
       )
 }
