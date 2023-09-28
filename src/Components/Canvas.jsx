@@ -51,10 +51,10 @@ const Canvas = () => {
         ctx.current.lineCap = "round"
         ctx.current.strokeStyle = color
 
-        ctx.current.lineTo(nativeEvent.clientX, nativeEvent.clientY)
+        ctx.current.lineTo(nativeEvent.clientX ?? nativeEvent.changedTouches[0].clientX, nativeEvent.clientY ?? nativeEvent.changedTouches[0].clientY)
         ctx.current.stroke()
         ctx.current.beginPath()
-        ctx.current.moveTo(nativeEvent.clientX, nativeEvent.clientY)
+        ctx.current.moveTo(nativeEvent.clientX ?? nativeEvent.changedTouches[0].clientX, nativeEvent.clientY ?? nativeEvent.changedTouches[0].clientY)
 
         if (timeout.current !== undefined) clearTimeout(timeout.current)
         timeout.current = setTimeout(function () {
