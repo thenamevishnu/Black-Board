@@ -110,7 +110,7 @@ const Canvas = () => {
     return (
         <div className='flex justify-center w-screen text-white'>
            {loading && <>
-            <div className='whitespace-nowrap absolute top-1/2 left-1/2 text-lg font-mono translate-x-[-50%] translate-y-[-50%]'>
+            <div className='absolute top-1/2 left-1/2 text-lg font-mono translate-x-[-50%] translate-y-[-50%]'>
                 <h1 className='animate-pulse'>WELCOME TO BLACK BOARD</h1>
                 <p>Note: Double click anywhere to show/hide tools</p>
                 <button className='bg-green-600 active:bg-green-900 px-2 rounded-lg mt-5' onClick={()=>setAggreed(true)}>Okey</button>
@@ -129,7 +129,7 @@ const Canvas = () => {
                 </div>
 
                 <div className='mx-5 bg-black'>
-                    <select className="w-14 bg-black cursor-pointer rounded-xl outline-none border-2 border-gray-500" value={size} onChange={(e) => setSize(e.target.value)} >
+                    <select className="w-14 text-center bg-black cursor-pointer rounded-xl outline-none border-2 border-gray-500" value={size} onChange={(e) => setSize(e.target.value)} >
                         <option> 1 </option>
                         <option> 3 </option>
                         <option> 5 </option>
